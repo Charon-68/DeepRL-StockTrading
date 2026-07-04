@@ -1,7 +1,16 @@
-# Add project dependencies here
-# Example:
-# numpy
-# pandas
-# torch
-# gym
-# stable-baselines3
+finrl
+torch
+stable-baselines3
+gymnasium
+yfinance
+pandas
+numpy
+matplotlib
+plotly
+scikit-learn
+ta
+jupyter
+pytest
+black
+isort
+flake8
