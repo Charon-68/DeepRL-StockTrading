@@ -44,7 +44,7 @@ class RiskAwareRewardWrapper(gym.Wrapper):
     def __init__(self, env: gym.Env):
         super().__init__(env)
         self._prev_cost: float = 0.0
-
+        self.stock_dim = env.stock_dim
     def reset(self, **kwargs):
         obs, info = self.env.reset(**kwargs)
         self._prev_cost = 0.0          # cost resets to 0 on episode start
