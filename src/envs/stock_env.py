@@ -161,3 +161,16 @@ def create_train_env_discrete(df: pd.DataFrame) -> gym.Env:
     env = DiscreteActionWrapper(env)
     print(f"  Train env (discrete): {train_df['date'].min()} → {train_df['date'].max()}")
     return env
+def create_test_env_discrete(df: pd.DataFrame) -> gym.Env:
+    """2022–2025 test environment with discrete actions for DQN."""
+    from src.envs.discrete_wrapper import DiscreteActionWrapper
+
+    test_df = _split_dataframe(df, TEST_START_DATE, TEST_END_DATE)
+
+    env = _build_env(test_df)
+    env = RiskAwareRewardWrapper(env)
+    env = DiscreteActionWrapper(env)
+
+    print(f"  Test env (discrete): {test_df['date'].min()} → {test_df['date'].max()}")
+
+    return env
