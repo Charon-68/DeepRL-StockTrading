@@ -109,3 +109,31 @@ SAC_TAU             = 0.005
 SAC_GAMMA           = 0.99
 SAC_ENT_COEF        = "auto"
 SAC_TOTAL_TIMESTEPS = 500_000
+
+# =============================================================================
+# DDPG Hyperparameters
+# =============================================================================
+
+MODELS_DIR_DDPG      = BASE_DIR / "models" / "ddpg"
+DDPG_LEARNING_RATE   = 1e-4
+DDPG_BUFFER_SIZE     = 100_000
+DDPG_LEARNING_STARTS = 1_000
+DDPG_BATCH_SIZE      = 256
+DDPG_TAU             = 0.005
+DDPG_GAMMA           = 0.99
+DDPG_TOTAL_TIMESTEPS = 500_000
+
+# =============================================================================
+# DQN Hyperparameters
+# =============================================================================
+
+MODELS_DIR_DQN             = BASE_DIR / "models" / "dqn"
+DQN_LEARNING_RATE          = 1e-4
+DQN_BUFFER_SIZE            = 100_000
+DQN_LEARNING_STARTS        = 1_000
+DQN_BATCH_SIZE             = 64
+DQN_GAMMA                  = 0.99
+DQN_TARGET_UPDATE_INTERVAL = 1_000
+DQN_EXPLORATION_FRACTION   = 0.3
+DQN_EXPLORATION_FINAL_EPS  = 0.05
+DQN_TOTAL_TIMESTEPS        = 500_000

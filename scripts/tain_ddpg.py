@@ -6,15 +6,15 @@ sys.path.append(str(PROJECT_ROOT))
 
 import pandas as pd
 
-from configs.config import PROCESSED_DATA_PATH, DQN_TOTAL_TIMESTEPS
-from src.envs.stock_env import create_train_env_discrete
-from src.agents.dqn_agent import DQNAgent
+from configs.config import PROCESSED_DATA_PATH, DDPG_TOTAL_TIMESTEPS
+from src.envs.stock_env import create_train_env
+from src.agents.ddpg_agent import DDPGAgent
 
 
 def main():
 
     print("=" * 60)
-    print("DQN TRAINING PIPELINE")
+    print("DDPG TRAINING PIPELINE")
     print("=" * 60)
 
     print("\n[1/3] Loading processed dataset...")
@@ -32,14 +32,14 @@ def main():
     print(f"  Dates  : {df['date'].min()} → {df['date'].max()}")
     print(f"  Stocks : {df['tic'].nunique()}")
 
-    print("\n[2/3] Creating discrete training environment...")
-    train_env = create_train_env_discrete(df)
+    print("\n[2/3] Creating training environment...")
+    train_env = create_train_env(df)
     print(f"  Obs space    : {train_env.observation_space.shape}")
-    print(f"  Action space : {train_env.action_space.n} discrete actions")
+    print(f"  Action space : {train_env.action_space.shape}")
 
-    print("\n[3/3] Initialising DQN agent...")
-    agent = DQNAgent(env=train_env, run_name="dqn_run_1")
-    agent.train(total_timesteps=DQN_TOTAL_TIMESTEPS)
+    print("\n[3/3] Initialising DDPG agent...")
+    agent = DDPGAgent(env=train_env, run_name="ddpg_run_1")
+    agent.train(total_timesteps=DDPG_TOTAL_TIMESTEPS)
     agent.save()
 
     print("\n" + "=" * 60)
