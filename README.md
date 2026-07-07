@@ -56,10 +56,10 @@ This project aims to study:
 - [x] Transaction penalty
 
 ### RL Agents
-- [ ] DQN
-- [ ] DDPG
-- [ ] PPO
-- [ ] SAC
+- [x] PPO (Proximal Policy Optimization)
+- [x] SAC (Soft Actor-Critic)
+- [x] DDPG (Deep Deterministic Policy Gradient)
+- [x] DQN (Deep Q-Network, discrete action wrapper)
 
 ### Evaluation
 - [ ] Backtesting
@@ -139,7 +139,13 @@ DeepRL-StockTrading/
 │
 ├── src/
 │   ├── agents/
+│   │   ├── ppo_agent.py
+│   │   ├── sac_agent.py
+│   │   ├── ddpg_agent.py
+│   │   └── dqn_agent.py
 │   ├── envs/
+│   │   ├── stock_env.py
+│   │   └── discrete_wrapper.py
 │   ├── reward/
 │   ├── backtesting/
 │   ├── evaluation/
@@ -297,12 +303,12 @@ where:
 
 The framework supports:
 
-| Algorithm | Status |
-|-----------|---------|
-| DQN | Planned |
-| DDPG | Planned |
-| PPO | Planned |
-| SAC | Planned |
+| Algorithm | Type | Action Space | Status |
+|-----------|------|-------------|--------|
+| PPO | On-policy | Continuous | Complete |
+| SAC | Off-policy | Continuous | Complete |
+| DDPG | Off-policy | Continuous | Complete |
+| DQN | Off-policy | Discrete (21 actions) | Complete |
 
 Implementation uses:
 
@@ -370,10 +376,38 @@ python -m scripts.test_environment
 
 ---
 
-### 4. Train Agent
+### 4. Train Agents
+
+Run each agent sequentially (each takes ~2 hours on GPU):
 
 ```bash
+# PPO — on-policy, continuous actions
+python -m scripts.train_ppo
+
+# SAC — off-policy, entropy regularization
+python -m scripts.train_sac
+
+# DDPG — off-policy, deterministic policy
+python -m scripts.train_ddpg
+
+# DQN — off-policy, discrete action space
 python -m scripts.train_dqn
+```
+
+Monitor training in real time:
+
+```bash
+tensorboard --logdir results/logs --port 6007
+```
+
+Trained models are saved to:
+
+```text
+models/
+├── ppo/ppo_run_1_final.zip
+├── sac/sac_run_1_final.zip
+├── ddpg/ddpg_run_1_final.zip
+└── dqn/dqn_run_1_final.zip
 ```
 
 ---
@@ -388,12 +422,12 @@ python -m scripts.evaluate
 
 # Planned Experiments
 
-- [ ] Vanilla DQN
+- [x] Vanilla DQN
+- [x] DDPG
+- [x] PPO
+- [x] SAC
 - [ ] Double DQN
 - [ ] Dueling DQN
-- [ ] DDPG
-- [ ] PPO
-- [ ] SAC
 - [ ] Ensemble Models
 - [ ] Hyperparameter Optimization
 - [ ] Risk-aware Reward Ablation
